@@ -243,9 +243,15 @@
     document.getElementById("rightBtn").addEventListener("touchstart", () => rightPressed = true);
     document.getElementById("rightBtn").addEventListener("touchend", () => rightPressed = false);
 
-    // Restart on tap if game over
-    canvas.addEventListener("touchstart", () => {
-      if (gameOver) resetGame();
+    // Restart on tap or click
+    canvas.addEventListener("click", () => { if (gameOver) resetGame(); });
+    canvas.addEventListener("touchstart", e => {
+      if (gameOver) {
+        resetGame();
+      } else {
+        // Small boost jump if falling
+        if (shrimp.dy > 0) shrimp.dy = bounce * 0.7;
+      }
     });
 
     // Start game
@@ -253,4 +259,3 @@
   </script>
 </body>
 </html>
-
